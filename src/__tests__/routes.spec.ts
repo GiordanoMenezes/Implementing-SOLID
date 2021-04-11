@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import request from "supertest";
 import { v4 } from "uuid";
 
@@ -53,9 +54,7 @@ describe("[PATCH] /users/:user_id/admin", () => {
   });
 
   it("should not be able to turn a non existing user as admin", async () => {
-    const response = await request(app)
-      .patch(`/users/${v4()}/admin`)
-      .expect(404);
+    const response = await request(app).patch(`/users/${v4()}/admin`).expect(404);
 
     expect(response.body.error).toBeTruthy();
   });
@@ -122,11 +121,7 @@ describe("[GET] /users", () => {
         updated_at: new Date(res.updated_at),
       }))
     ).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({ ...user1, admin: true }),
-        user2,
-        user3,
-      ])
+      expect.arrayContaining([expect.objectContaining({ ...user1, admin: true }), user2, user3])
     );
   });
 
@@ -138,10 +133,7 @@ describe("[GET] /users", () => {
       email: String(Math.random()),
     });
 
-    const response = await request(app)
-      .get("/users")
-      .set("user_id", user.id)
-      .expect(400);
+    const response = await request(app).get("/users").set("user_id", user.id).expect(400);
 
     expect(response.body.error).toBeTruthy();
   });
@@ -154,19 +146,13 @@ describe("[GET] /users", () => {
       email: String(Math.random()),
     });
 
-    const response = await request(app)
-      .get("/users")
-      .set("user_id", user.id)
-      .expect(400);
+    const response = await request(app).get("/users").set("user_id", user.id).expect(400);
 
     expect(response.body.error).toBeTruthy();
   });
 
   it("should not be able to a non existing user get list of all users", async () => {
-    const response = await request(app)
-      .get("/users")
-      .set("user_id", v4())
-      .expect(400);
+    const response = await request(app).get("/users").set("user_id", v4()).expect(400);
 
     expect(response.body.error).toBeTruthy();
   });

@@ -4,8 +4,7 @@ import { TurnUserAdminUseCase } from "./TurnUserAdminUseCase";
 
 const usersRepository = UsersRepository.getInstance();
 const turnUserAdminUseCase = new TurnUserAdminUseCase(usersRepository);
-const turnUserAdminController = new TurnUserAdminController(
-  turnUserAdminUseCase
-);
+// eslint-disable-next-line prettier/prettier
+const turnUserAdminController = new TurnUserAdminController(turnUserAdminUseCase);
 
 export { turnUserAdminController };
